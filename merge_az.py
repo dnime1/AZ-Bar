@@ -263,32 +263,42 @@ for e in STRUCTURE:
 total = len(writer.pages)
 print(f"Total pages: {total}")
 
-# Links — fix zoom by specifying explicit zoom=0 (inherit current zoom)
+# Links — two-pass: write first so indirect refs exist, then reopen and annotate
+out = "/home/ubuntu/AZ_Bar_Merged.pdf"
+with open(out, "wb") as f:
+    writer.write(f)
+
 try:
     from pypdf.generic import (ArrayObject, FloatObject, NameObject,
                                 NumberObject, DictionaryObject)
+    reader2 = PdfReader(out)
+    writer2 = PdfWriter()
+    writer2.append(reader2)
+
     for (toc_pg, rect, target_pg) in link_records:
-        if toc_pg >= total or target_pg >= total: continue
-        # Build explicit XYZ destination: page, left=0, top=page_height, zoom=0 (no change)
-        page_obj = writer.pages[target_pg]
+        if toc_pg >= len(writer2.pages) or target_pg >= len(writer2.pages): continue
+        page_obj = writer2.pages[target_pg]
         dest = ArrayObject([
             page_obj.indirect_reference,
             NameObject("/XYZ"),
             FloatObject(0),
             FloatObject(float(page_obj.mediabox[3])),
-            FloatObject(0),  # zoom=0 means keep current zoom
+            FloatObject(0),
         ])
         annot = DictionaryObject({
-            NameObject("/Type"): NameObject("/Annot"),
+            NameObject("/Type"):    NameObject("/Annot"),
             NameObject("/Subtype"): NameObject("/Link"),
-            NameObject("/Rect"): ArrayObject([
+            NameObject("/Rect"):    ArrayObject([
                 FloatObject(rect[0]), FloatObject(rect[1]),
                 FloatObject(rect[2]), FloatObject(rect[3])
             ]),
-            NameObject("/Border"): ArrayObject([NumberObject(0), NumberObject(0), NumberObject(0)]),
-            NameObject("/Dest"): dest,
+            NameObject("/Border"):  ArrayObject([NumberObject(0), NumberObject(0), NumberObject(0)]),
+            NameObject("/Dest"):    dest,
         })
-        writer.add_annotation(page_number=toc_pg, annotation=annot)
+        writer2.add_annotation(page_number=toc_pg, annotation=annot)
+
+    with open(out, "wb") as f:
+        writer2.write(f)
     print("Links OK (zoom preserved)")
 except Exception as ex:
     print(f"Links error: {ex}")
@@ -309,8 +319,5 @@ for e in STRUCTURE:
         if pg < total:
             writer.add_outline_item(f"{num}. {e[2]}", pg, parent=parent)
 
-out = "/home/ubuntu/AZ_Bar_Merged.pdf"
-with open(out, "wb") as f:
-    writer.write(f)
 size_mb = os.path.getsize(out) / 1024 / 1024
 print(f"\nDONE: {out} ({size_mb:.1f} MB, {total} pages)")
