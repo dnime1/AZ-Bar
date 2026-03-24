@@ -117,25 +117,25 @@ def make_cover():
     buf = io.BytesIO()
     c = rl_canvas.Canvas(buf, pagesize=letter)
     ys = h - 3.2*inch
-    c.setFont("Times-Roman", 10)
+    c.setFont("Times-Roman", 12)
     c.drawCentredString(w/2, ys,      "BEFORE THE COMMITTEE ON CHARACTER AND FITNESS")
     c.drawCentredString(w/2, ys - 15, "OF THE SUPREME COURT OF ARIZONA")
     lx = 1.0*inch; rcx = 4.4*inch; bt = ys - 50; lh = 18
-    c.setFont("Times-Roman", 11)
+    c.setFont("Times-Roman", 12)
     c.drawString(lx, bt, "In the Matter of the Application of")
-    ind = lx + c.stringWidth("In the ", "Times-Roman", 11)
-    c.setFont("Times-Bold", 11)
+    ind = lx + c.stringWidth("In the ", "Times-Roman", 12)
+    c.setFont("Times-Bold", 12)
     c.drawString(ind, bt - lh, "DAVID GARIBOTTO NIMER")
-    c.setFont("Times-Roman", 11)
+    c.setFont("Times-Roman", 12)
     c.drawString(lx, bt - lh*2, "To Be Admitted to the Practice of Law")
     lt = bt + 10; lb = bt - lh*2 - 12
     c.setLineWidth(0.75)
     c.line(rcx - 0.15*inch, lt, rcx - 0.15*inch, lb)
     c.line(lx, lb, rcx - 0.15*inch, lb)
-    c.setFont("Times-BoldItalic", 10)
+    c.setFont("Times-Bold", 12)
     rx = rcx + 0.1*inch
-    c.drawString(rx, bt,      "Application (Amended) and")
-    c.drawString(rx, bt - lh, "Supporting Documents")
+    c.drawString(rx, bt,      "APPLICATION (AMENDED) AND")
+    c.drawString(rx, bt - lh, "SUPPORTING DOCUMENTS")
     c.save(); buf.seek(0); return buf
 
 def make_divider(sec_num, sec_title):
@@ -144,7 +144,7 @@ def make_divider(sec_num, sec_title):
     base_y = h * (2.0/3.0)
     c.setFont("Times-Bold", 14)
     c.drawCentredString(w/2, base_y + 24, sec_num)
-    c.setFont("Times-Roman", 13)
+    c.setFont("Times-Bold", 13)
     c.drawCentredString(w/2, base_y, sec_title)
     c.setLineWidth(0.5)
     c.line(1.0*inch, base_y - 16, w - 1.0*inch, base_y - 16)
