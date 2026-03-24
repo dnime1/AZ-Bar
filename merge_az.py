@@ -69,48 +69,40 @@ MONTHS = ['January','February','March','April','May','June',
           'July','August','September','October','November','December']
 
 def fmt_date(d):
-    if not d or d in ('n/a','na',''):
-        return u'\u2014'
-    if d.startswith('Class'):
-        return d
+    if not d or d in ('n/a','na',''): return u'\u2014'
+    if d.startswith('Class'): return d
     try:
         parts = d.split('-')
         if len(parts) == 3:
             return f"{MONTHS[int(parts[1])-1]} {int(parts[2])}, {parts[0]}"
-    except:
-        pass
+    except: pass
     return d
 
 def dots_between(c, x1, x2, y, font="Times-Roman", size=9):
     gap = x2 - x1
     if gap <= 2: return
     d = ""
-    while c.stringWidth(d + ".", font, size) < gap:
-        d += "."
+    while c.stringWidth(d + ".", font, size) < gap: d += "."
     c.setFont(font, size)
     c.drawString(x1, y, d)
 
+# Count pages
 doc_page_counts = {}
 for e in STRUCTURE:
     if e[0] == 'section': continue
     num, fname = e[0], e[1]
-    try:
-        doc_page_counts[num] = len(PdfReader(os.path.join(repo, fname)).pages)
+    try: doc_page_counts[num] = len(PdfReader(os.path.join(repo, fname)).pages)
     except Exception as ex:
         print(f"ERROR reading {fname}: {ex}")
         doc_page_counts[num] = 1
 
 def compute_layout(structure, doc_page_counts, toc_pages=1):
-    layout = {}
-    current = 1 + toc_pages
-    si = 0
+    layout = {}; current = 1 + toc_pages; si = 0
     for e in structure:
         if e[0] == 'section':
-            layout[f's{si}'] = current
-            si += 1; current += 1
+            layout[f's{si}'] = current; si += 1; current += 1
         else:
-            layout[e[0]] = current
-            current += doc_page_counts.get(e[0], 1)
+            layout[e[0]] = current; current += doc_page_counts.get(e[0], 1)
     return layout
 
 def make_cover():
@@ -119,8 +111,8 @@ def make_cover():
     ys = h - 3.2*inch
     c.setFont("Times-Roman", 12)
     c.drawCentredString(w/2, ys,      "BEFORE THE COMMITTEE ON CHARACTER AND FITNESS")
-    c.drawCentredString(w/2, ys - 15, "OF THE SUPREME COURT OF ARIZONA")
-    lx = 1.0*inch; rcx = 4.4*inch; bt = ys - 50; lh = 18
+    c.drawCentredString(w/2, ys - 16, "OF THE SUPREME COURT OF ARIZONA")
+    lx = 1.0*inch; rcx = 4.4*inch; bt = ys - 54; lh = 19
     c.setFont("Times-Roman", 12)
     c.drawString(lx, bt, "In the Matter of the Application of")
     ind = lx + c.stringWidth("In the ", "Times-Roman", 12)
@@ -132,7 +124,7 @@ def make_cover():
     c.setLineWidth(0.75)
     c.line(rcx - 0.15*inch, lt, rcx - 0.15*inch, lb)
     c.line(lx, lb, rcx - 0.15*inch, lb)
-    c.setFont("Times-Bold", 12)
+    c.setFont("Times-Bold", 11)
     rx = rcx + 0.1*inch
     c.drawString(rx, bt,      "APPLICATION (AMENDED) AND")
     c.drawString(rx, bt - lh, "SUPPORTING DOCUMENTS")
@@ -150,20 +142,20 @@ def make_divider(sec_num, sec_title):
     c.line(1.0*inch, base_y - 16, w - 1.0*inch, base_y - 16)
     c.save(); buf.seek(0); return buf
 
-def make_toc(structure, layout, toc_page_offset=1):
+def make_toc(structure, layout):
     buf = io.BytesIO()
     c = rl_canvas.Canvas(buf, pagesize=letter)
+    # link_records: (toc_page_index, rect, target_page_index)
     link_records = []
     toc_local = 0
     ROW_H = 0.185*inch
     y = h - 1.0*inch
 
-    # Column positions — evenly spaced
     NUM_X    = ML
     NAME_X   = ML + 0.32*inch
     NAME_END = ML + 3.0*inch
-    DATE_C_X = ML + 3.3*inch   # Created — shifted right
-    DATE_U_X = ML + 4.45*inch  # Uploaded — shifted right, evenly spaced
+    DATE_C_X = ML + 3.3*inch
+    DATE_U_X = ML + 4.45*inch
     PAGE_X   = MR
 
     c.setFont("Times-Bold", 13)
@@ -192,54 +184,43 @@ def make_toc(structure, layout, toc_page_offset=1):
             c.setFillColorRGB(0.15, 0.15, 0.45)
             label = f"{e[1]} \u2014 {e[2]}"
             c.drawString(NAME_X, y, label)
-            # dots from section label to page number
             lw = c.stringWidth(label, "Times-Bold", 9)
-            dots_between(c, NAME_X + lw + 4, PAGE_X - c.stringWidth(str(target+1), "Times-Roman", 9) - 4, y, "Times-Bold", 9)
-            c.setFillColorRGB(0.15, 0.15, 0.45)
-            c.drawRightString(PAGE_X, y, str(target + 1))
+            pg_str = str(target + 1)
+            dots_between(c, NAME_X+lw+4, PAGE_X - c.stringWidth(pg_str,"Times-Bold",9) - 4, y, "Times-Bold", 9)
+            c.drawRightString(PAGE_X, y, pg_str)
             c.setFillColorRGB(0,0,0)
-            link_records.append((toc_page_offset + toc_local, (ML, y-2, MR, y+10), target))
+            link_records.append((toc_local, (ML, y-3, MR, y+10), target))
             y -= ROW_H
         else:
             num, fname, name, created, uploaded = e
             target = layout.get(num, 0)
             c.setFont("Times-Roman", 9)
             c.drawString(NUM_X, y, str(num))
-
             dn = name
-            while c.stringWidth(dn, "Times-Roman", 9) > (NAME_END - NAME_X) and len(dn) > 5:
-                dn = dn[:-1]
-            if dn != name: dn = dn[:-3] + "..."
+            while c.stringWidth(dn,"Times-Roman",9) > (NAME_END-NAME_X) and len(dn)>5: dn=dn[:-1]
+            if dn != name: dn = dn[:-3]+"..."
             c.drawString(NAME_X, y, dn)
-
-            dc = fmt_date(created)
-            du = fmt_date(uploaded)
-            pg_str = str(target + 1)
-
+            dc = fmt_date(created); du = fmt_date(uploaded); pg_str = str(target+1)
+            dots_between(c, NAME_X+c.stringWidth(dn,"Times-Roman",9)+3, DATE_C_X-3, y)
             c.drawString(DATE_C_X, y, dc)
-            # dots: name end -> Created
-            dots_between(c, NAME_X + c.stringWidth(dn, "Times-Roman", 9) + 3, DATE_C_X - 3, y)
-            # dots: Created end -> Uploaded
-            dots_between(c, DATE_C_X + c.stringWidth(dc, "Times-Roman", 9) + 3, DATE_U_X - 3, y)
+            dots_between(c, DATE_C_X+c.stringWidth(dc,"Times-Roman",9)+3, DATE_U_X-3, y)
             c.drawString(DATE_U_X, y, du)
-            # dots: Uploaded end -> Page
-            dots_between(c, DATE_U_X + c.stringWidth(du, "Times-Roman", 9) + 3, PAGE_X - c.stringWidth(pg_str, "Times-Roman", 9) - 3, y)
+            dots_between(c, DATE_U_X+c.stringWidth(du,"Times-Roman",9)+3, PAGE_X-c.stringWidth(pg_str,"Times-Roman",9)-3, y)
             c.drawRightString(PAGE_X, y, pg_str)
-
-            link_records.append((toc_page_offset + toc_local, (ML, y-2, MR, y+10), target))
+            link_records.append((toc_local, (ML, y-3, MR, y+10), target))
             y -= ROW_H
 
     c.save(); buf.seek(0)
-    return buf, link_records
+    return buf, link_records, toc_local+1  # buf, records, num toc pages
 
-# Two-pass
+# Two-pass layout
 layout = compute_layout(STRUCTURE, doc_page_counts, toc_pages=1)
-toc_buf, _ = make_toc(STRUCTURE, layout, 1)
-actual_toc_pages = len(PdfReader(toc_buf).pages)
-print(f"TOC pages: {actual_toc_pages}")
-layout = compute_layout(STRUCTURE, doc_page_counts, toc_pages=actual_toc_pages)
-toc_buf, link_records = make_toc(STRUCTURE, layout, 1)
+toc_buf, _, toc_pages = make_toc(STRUCTURE, layout)
+layout = compute_layout(STRUCTURE, doc_page_counts, toc_pages=toc_pages)
+toc_buf, link_records, toc_pages = make_toc(STRUCTURE, layout)
+print(f"TOC pages: {toc_pages}")
 
+# Assemble with pypdf
 writer = PdfWriter()
 for pg in PdfReader(make_cover()).pages: writer.add_page(pg)
 toc_buf.seek(0)
@@ -248,7 +229,7 @@ for pg in PdfReader(toc_buf).pages: writer.add_page(pg)
 si = 0
 for e in STRUCTURE:
     if e[0] == 'section':
-        for pg in PdfReader(make_divider(e[1], e[2])).pages: writer.add_page(pg)
+        for pg in PdfReader(make_divider(e[1],e[2])).pages: writer.add_page(pg)
         si += 1
     else:
         num, fname = e[0], e[1]
@@ -263,63 +244,44 @@ for e in STRUCTURE:
 total = len(writer.pages)
 print(f"Total pages: {total}")
 
-# Links — use pypdf _pages kids ref for reliable indirect references
+# Write PDF first
 out = "/home/ubuntu/AZ_Bar_Merged.pdf"
 with open(out, "wb") as f:
     writer.write(f)
+print("First write done")
 
-try:
-    from pypdf.generic import (ArrayObject, FloatObject, NameObject,
-                                NumberObject, DictionaryObject, NullObject)
-    reader2 = PdfReader(out)
-    writer2 = PdfWriter()
-    writer2.append(reader2)
+# Now use pikepdf to add links — most reliable PDF library for this
+import pikepdf
+from pikepdf import Dictionary, Array, Name, Pdf
 
-    # Get page kid refs directly from page tree - these are valid indirect objects
-    kids = writer2._pages.get_object()["/Kids"]
-
-    for (toc_pg, rect, target_pg) in link_records:
-        if toc_pg >= len(writer2.pages) or target_pg >= len(kids): continue
-        dest = ArrayObject([
-            kids[target_pg],          # valid IndirectObject within writer2
-            NameObject("/XYZ"),
-            NullObject(),             # null = don't change left position
-            NullObject(),             # null = don't change top position
-            FloatObject(0),           # 0 = keep current zoom
+pdf = pikepdf.open(out, allow_overwriting_input=True)
+n_links = 0
+for (toc_pg_local, rect, target_pg) in link_records:
+    # toc pages start at page index 1 (after cover)
+    toc_abs = 1 + toc_pg_local
+    if toc_abs >= len(pdf.pages) or target_pg >= len(pdf.pages): continue
+    toc_page = pdf.pages[toc_abs]
+    target_page = pdf.pages[target_pg]
+    annot = Dictionary(
+        Type=Name.Annot,
+        Subtype=Name.Link,
+        Rect=Array([rect[0], rect[1], rect[2], rect[3]]),
+        Border=Array([0, 0, 0]),
+        Dest=Array([
+            target_page,   # direct page object ref — pikepdf handles this correctly
+            Name.XYZ,
+            pikepdf.Null(),  # left: null = don't change
+            pikepdf.Null(),  # top: null = don't change
+            0,               # zoom: 0 = keep current
         ])
-        annot = DictionaryObject({
-            NameObject("/Type"):    NameObject("/Annot"),
-            NameObject("/Subtype"): NameObject("/Link"),
-            NameObject("/Rect"):    ArrayObject([
-                FloatObject(rect[0]), FloatObject(rect[1]),
-                FloatObject(rect[2]), FloatObject(rect[3])
-            ]),
-            NameObject("/Border"):  ArrayObject([NumberObject(0), NumberObject(0), NumberObject(0)]),
-            NameObject("/Dest"):    dest,
-        })
-        writer2.add_annotation(page_number=toc_pg, annotation=annot)
+    )
+    if "/Annots" not in toc_page:
+        toc_page["/Annots"] = Array()
+    toc_page["/Annots"].append(pdf.make_indirect(annot))
+    n_links += 1
 
-    with open(out, "wb") as f:
-        writer2.write(f)
-    print("Links OK (zoom preserved)")
-except Exception as ex:
-    print(f"Links error: {ex}")
+pdf.save(out)
+print(f"Links OK: {n_links} added (zoom preserved)")
 
-# Bookmarks
-si = 0
-section_parents = {}
-for e in STRUCTURE:
-    if e[0] == 'section':
-        pg = layout.get(f's{si}', 0)
-        if pg < total:
-            section_parents[si] = writer.add_outline_item(f"{e[1]} — {e[2]}", pg)
-        si += 1
-    else:
-        num = e[0]; pg = layout.get(num, 0)
-        parent_si = max([i for i in range(si) if layout.get(f's{i}', 999) <= pg], default=0)
-        parent = section_parents.get(parent_si)
-        if pg < total:
-            writer.add_outline_item(f"{num}. {e[2]}", pg, parent=parent)
-
-size_mb = os.path.getsize(out) / 1024 / 1024
+size_mb = os.path.getsize(out)/1024/1024
 print(f"\nDONE: {out} ({size_mb:.1f} MB, {total} pages)")
