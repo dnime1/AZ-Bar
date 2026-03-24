@@ -263,27 +263,29 @@ for e in STRUCTURE:
 total = len(writer.pages)
 print(f"Total pages: {total}")
 
-# Links — two-pass: write first so indirect refs exist, then reopen and annotate
+# Links — use pypdf _pages kids ref for reliable indirect references
 out = "/home/ubuntu/AZ_Bar_Merged.pdf"
 with open(out, "wb") as f:
     writer.write(f)
 
 try:
     from pypdf.generic import (ArrayObject, FloatObject, NameObject,
-                                NumberObject, DictionaryObject)
+                                NumberObject, DictionaryObject, NullObject)
     reader2 = PdfReader(out)
     writer2 = PdfWriter()
     writer2.append(reader2)
 
+    # Get page kid refs directly from page tree - these are valid indirect objects
+    kids = writer2._pages.get_object()["/Kids"]
+
     for (toc_pg, rect, target_pg) in link_records:
-        if toc_pg >= len(writer2.pages) or target_pg >= len(writer2.pages): continue
-        page_obj = writer2.pages[target_pg]
+        if toc_pg >= len(writer2.pages) or target_pg >= len(kids): continue
         dest = ArrayObject([
-            page_obj.indirect_reference,
+            kids[target_pg],          # valid IndirectObject within writer2
             NameObject("/XYZ"),
-            FloatObject(0),
-            FloatObject(float(page_obj.mediabox[3])),
-            FloatObject(0),
+            NullObject(),             # null = don't change left position
+            NullObject(),             # null = don't change top position
+            FloatObject(0),           # 0 = keep current zoom
         ])
         annot = DictionaryObject({
             NameObject("/Type"):    NameObject("/Annot"),
