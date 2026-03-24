@@ -268,10 +268,10 @@ for (toc_pg_local, rect, target_pg) in link_records:
         Rect=Array([rect[0], rect[1], rect[2], rect[3]]),
         Border=Array([0, 0, 0]),
         Dest=Array([
-            target_page,   # direct page object ref — pikepdf handles this correctly
+            target_page.obj,   # direct page object ref
             Name.XYZ,
-            pikepdf.Null(),  # left: null = don't change
-            pikepdf.Null(),  # top: null = don't change
+            None,  # left: null = don't change
+            None,  # top: null = don't change
             0,               # zoom: 0 = keep current
         ])
     )
