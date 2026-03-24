@@ -10,14 +10,14 @@ ML = 0.85 * inch
 MR = w - 0.85 * inch
 
 STRUCTURE = [
-    ('section', 'Section I \u2014 Application and Letters of Recommendation'),
+    ('section', 'Section I', 'Application and Letters of Recommendation'),
     (1,  '2.5.25_Authorization_&_Release.pdf',                        'Authorization and Release',                                '2025-02-05', '2025-02-05'),
     (2,  '2.5.25_Declaration.pdf',                                     'Declaration',                                              '2025-02-05', '2025-02-05'),
     (3,  '25.2.05_AZ_C&F_Application_Amendment_10.23.25.pdf',          'Character & Fitness Application (Amended)',                 '2025-10-23', '2025-10-23'),
     (4,  'Addendum.pdf',                                               'Addendum to Cure Omissions',                               '2025-10-19', '2025-10-20'),
     (5,  'Character_letter_BJS.pdf',                                   'Brandon Squires Letter of Recommendation',                 '2026-03-18', '2026-03-23'),
     (6,  'LOR- David Nimer AZ Bar.pdf',                                'Tim Myers Letter of Recommendation',                       '2025-10-22', '2025-11-12'),
-    ('section', 'Section II \u2014 Medical and Psychological Evaluations'),
+    ('section', 'Section II', 'Medical and Psychological Evaluations'),
     (7,  'DN LTR AZ SUPREME CT 11-11-25.pdf',                         'Dr. Michael Kerrigan Letter',                              '2025-11-11', '2025-11-12'),
     (8,  '25.10.21_Dr_Manriquez_Letter.pdf',                           'Dr. Maria Manriquez Letter',                               '2025-10-21', '2025-11-12'),
     (9,  '25.12.04_Dr_Brower_Neurospych_Eval.pdf',                     'Dr. Michael Brower Neuropsychological Report',             '2025-12-04', 'n/a'),
@@ -28,7 +28,7 @@ STRUCTURE = [
     (14, '15.12.02_Brain_MRI_Report_Dr_Rao.pdf',                       'Brain MRI (Dec. 2015)',                                    '2015-12-02', '2025-10-31'),
     (15, '15.3.12_Brain_MRI_Report_Dr_Rao.pdf',                        'Brain MRI (Mar. 2015)',                                    '2015-03-12', '2025-10-31'),
     (16, '15.2.08_CT+MRI_Brain_OKC.pdf',                               'CT & MRI Brain (Feb. 2015)',                               '2015-02-08', '2025-10-31'),
-    ('section', 'Section III \u2014 Transcripts and University Records'),
+    ('section', 'Section III', 'Transcripts and University Records'),
     (17, 'Transcript_Arizona_State_Law.pdf',                           'Transcript - ASU',                                         'Class of 2023', '2025-10-20'),
     (18, 'Transcript_Duke.pdf',                                        'Transcript - Duke',                                        'Class of 2020', '2025-10-20'),
     (19, 'Transcript_Colorado.pdf',                                    'Transcript - CU Boulder',                                  'Class of 2015', '2025-10-20'),
@@ -38,7 +38,7 @@ STRUCTURE = [
     (23, '19.5.24_Duke_Academic_Probation_Off_Notice.pdf',             'Duke Academic Probation - Off',                            '2019-05-24',    '2025-10-20'),
     (24, '19.1.14_Duke_Academic_Probation_Notice.pdf',                 'Duke Academic Probation - On',                             '2019-01-04',    '2025-10-20'),
     (25, '25.9.17_Dickinson_Conduct_Records_Letter.pdf',               'Dickinson Conduct Records Letter',                         '2025-09-17',    '2025-10-20'),
-    ('section', 'Section IV \u2014 Driver Records and Court Documents of DUIs'),
+    ('section', 'Section IV', 'Driver Records and Court Documents of DUIs'),
     (26, 'Driving_Record_Arizona_12.10.24.pdf',                        'Driving Record [Arizona current]',                         '2024-12-10',    '2025-02-05'),
     (27, 'Driving_Record_North_Carolina_12.10.24.pdf',                 'North Carolina Driving Record (Traffic History #1)',       '2024-12-10',    '2025-01-21'),
     (28, 'Driving_Record_Colorado_12.09.24.pdf',                       'Colorado Driving Record (Traffic History #1)',             '2024-12-09',    '2025-01-21'),
@@ -53,19 +53,43 @@ STRUCTURE = [
     (37, '00018-2015-11-16 - Summons and Complaint.pdf',               'Complaint/Indictment/Disposition [15T2492 (DUI,#2)]',     '2015-11-14',    '2025-01-22'),
     (38, '00016-2015-09-18 - Arrest Report.pdf',                       'Police Report [15T2454 (DWAI, #1)]',                      '2015-09-18',    '2025-01-22'),
     (39, '00010-2016-11-16 - Arrest Report.pdf',                       'Police Report [15T2492 (DUI, #2)]',                       '2015-11-16',    '2025-01-22'),
-    ('section', 'Section V \u2014 Traffic Tickets'),
+    ('section', 'Section V', 'Traffic Tickets'),
     (40, 'Traffic#1_19.11.15_Washington_Co._Ticket_Disposition.pdf',   'Traffic Case #1 [2019 - speeding]',                       '',              '2025-02-05'),
     (41, 'Traffic#2_18.4.10_Frederick_Ticket_Disposition.pdf',         'Traffic Case #2 [2018 - Speeding 10-19 Over]',            '',              '2025-01-24'),
     (42, 'Traffic#3_17.10.13_Longmont_Ticket_Disposition.pdf',         'Traffic Case #3 [2017 - Signal Light]',                   '',              '2025-01-24'),
     (43, 'Traffic#4_15.10.9_Erie_Ticket_Disposition.pdf',              'Traffic Case #4 [2015 - Failed To Yield]',                '',              '2025-01-24'),
     (44, 'Traffic#5_14.10.26_Kit_Carson_County_Ticket_Disposition.pdf','Traffic Case #5 [2014 - unknown]',                        '',              '2025-01-24'),
     (45, 'Traffic#6_13.8.25_Golden_Ticket_Disposition.pdf',            'Traffic Case #6 [2013 - unknown]',                        '',              '2025-01-24'),
-    ('section', 'Section VI \u2014 Miscellaneous'),
+    ('section', 'Section VI', 'Miscellaneous'),
     (46, 'College_Card_Final_Statement_Aug-Sept_2020.pdf',              'Paid in Full/Settlement 1',                               '',              '2025-02-05'),
     (47, 'Birth_Certificate_DGN.pdf',                                   'Documentation of Citizenship',                            '1991-05-31',    '2025-01-22'),
 ]
 
-# ── Count pages ───────────────────────────────────────────────────────────────
+MONTHS = ['January','February','March','April','May','June',
+          'July','August','September','October','November','December']
+
+def fmt_date(d):
+    if not d or d in ('n/a','na',''):
+        return u'\u2014'
+    if d.startswith('Class'):
+        return d
+    try:
+        parts = d.split('-')
+        if len(parts) == 3:
+            return f"{MONTHS[int(parts[1])-1]} {int(parts[2])}, {parts[0]}"
+    except:
+        pass
+    return d
+
+def dots_between(c, x1, x2, y, font="Times-Roman", size=9):
+    gap = x2 - x1
+    if gap <= 2: return
+    d = ""
+    while c.stringWidth(d + ".", font, size) < gap:
+        d += "."
+    c.setFont(font, size)
+    c.drawString(x1, y, d)
+
 doc_page_counts = {}
 for e in STRUCTURE:
     if e[0] == 'section': continue
@@ -76,7 +100,6 @@ for e in STRUCTURE:
         print(f"ERROR reading {fname}: {ex}")
         doc_page_counts[num] = 1
 
-# ── Layout calculator ─────────────────────────────────────────────────────────
 def compute_layout(structure, doc_page_counts, toc_pages=1):
     layout = {}
     current = 1 + toc_pages
@@ -90,7 +113,6 @@ def compute_layout(structure, doc_page_counts, toc_pages=1):
             current += doc_page_counts.get(e[0], 1)
     return layout
 
-# ── Cover ─────────────────────────────────────────────────────────────────────
 def make_cover():
     buf = io.BytesIO()
     c = rl_canvas.Canvas(buf, pagesize=letter)
@@ -112,21 +134,22 @@ def make_cover():
     c.line(lx, lb, rcx - 0.15*inch, lb)
     c.setFont("Times-BoldItalic", 10)
     rx = rcx + 0.1*inch
-    c.drawString(rx, bt,      "APPLICATION (AMENDED) AND")
-    c.drawString(rx, bt - lh, "SUPPORTING DOCUMENTS")
+    c.drawString(rx, bt,      "Application (Amended) and")
+    c.drawString(rx, bt - lh, "Supporting Documents")
     c.save(); buf.seek(0); return buf
 
-# ── Section divider ───────────────────────────────────────────────────────────
-def make_divider(title):
+def make_divider(sec_num, sec_title):
     buf = io.BytesIO()
     c = rl_canvas.Canvas(buf, pagesize=letter)
-    c.setFont("Times-Bold", 15)
-    c.drawCentredString(w/2, h/2 + 12, title)
+    base_y = h * (2.0/3.0)
+    c.setFont("Times-Bold", 14)
+    c.drawCentredString(w/2, base_y + 24, sec_num)
+    c.setFont("Times-Roman", 13)
+    c.drawCentredString(w/2, base_y, sec_title)
     c.setLineWidth(0.5)
-    c.line(1.0*inch, h/2, w - 1.0*inch, h/2)
+    c.line(1.0*inch, base_y - 16, w - 1.0*inch, base_y - 16)
     c.save(); buf.seek(0); return buf
 
-# ── TOC ───────────────────────────────────────────────────────────────────────
 def make_toc(structure, layout, toc_page_offset=1):
     buf = io.BytesIO()
     c = rl_canvas.Canvas(buf, pagesize=letter)
@@ -135,16 +158,24 @@ def make_toc(structure, layout, toc_page_offset=1):
     ROW_H = 0.185*inch
     y = h - 1.0*inch
 
+    # Column positions — evenly spaced
+    NUM_X    = ML
+    NAME_X   = ML + 0.32*inch
+    NAME_END = ML + 3.0*inch
+    DATE_C_X = ML + 3.3*inch   # Created — shifted right
+    DATE_U_X = ML + 4.45*inch  # Uploaded — shifted right, evenly spaced
+    PAGE_X   = MR
+
     c.setFont("Times-Bold", 13)
     c.drawCentredString(w/2, y, "TABLE OF CONTENTS")
     y -= 0.35*inch
 
     c.setFont("Times-Bold", 9)
-    c.drawString(ML, y, "#")
-    c.drawString(ML + 0.32*inch, y, "Document Name")
-    c.drawString(ML + 3.65*inch, y, "Created")
-    c.drawString(ML + 4.5*inch,  y, "Uploaded")
-    c.drawRightString(MR, y, "Page")
+    c.drawString(NUM_X,    y, "#")
+    c.drawString(NAME_X,   y, "Document Name")
+    c.drawString(DATE_C_X, y, "Created")
+    c.drawString(DATE_U_X, y, "Uploaded")
+    c.drawRightString(PAGE_X, y, "Page")
     y -= 0.04*inch
     c.setLineWidth(0.5); c.line(ML, y, MR, y)
     y -= ROW_H
@@ -158,62 +189,66 @@ def make_toc(structure, layout, toc_page_offset=1):
             target = layout.get(f's{si}', 0); si += 1
             y -= 0.04*inch
             c.setFont("Times-Bold", 9)
-            c.setFillColorRGB(0.15, 0.15, 0.5)
-            c.drawString(ML, y, e[1])
-            c.setFillColorRGB(0, 0, 0)
+            c.setFillColorRGB(0.15, 0.15, 0.45)
+            label = f"{e[1]} \u2014 {e[2]}"
+            c.drawString(NAME_X, y, label)
+            # dots from section label to page number
+            lw = c.stringWidth(label, "Times-Bold", 9)
+            dots_between(c, NAME_X + lw + 4, PAGE_X - c.stringWidth(str(target+1), "Times-Roman", 9) - 4, y, "Times-Bold", 9)
+            c.setFillColorRGB(0.15, 0.15, 0.45)
+            c.drawRightString(PAGE_X, y, str(target + 1))
+            c.setFillColorRGB(0,0,0)
             link_records.append((toc_page_offset + toc_local, (ML, y-2, MR, y+10), target))
             y -= ROW_H
         else:
             num, fname, name, created, uploaded = e
             target = layout.get(num, 0)
             c.setFont("Times-Roman", 9)
-            c.drawString(ML, y, str(num))
-            c.drawRightString(MR, y, str(target + 1))
-            nx = ML + 0.32*inch; max_w = 3.2*inch
+            c.drawString(NUM_X, y, str(num))
+
             dn = name
-            while c.stringWidth(dn, "Times-Roman", 9) > max_w and len(dn) > 5:
+            while c.stringWidth(dn, "Times-Roman", 9) > (NAME_END - NAME_X) and len(dn) > 5:
                 dn = dn[:-1]
             if dn != name: dn = dn[:-3] + "..."
-            c.drawString(nx, y, dn)
-            c.drawString(ML + 3.65*inch, y, (created or "\u2014")[:10])
-            c.drawString(ML + 4.5*inch,  y, (uploaded or "\u2014")[:10])
-            dot_s = nx + c.stringWidth(dn + "  ", "Times-Roman", 9)
-            dot_e = ML + 3.55*inch
-            if dot_e > dot_s:
-                dots = ""
-                while c.stringWidth(dots + ".", "Times-Roman", 9) < (dot_e - dot_s):
-                    dots += "."
-                c.drawString(dot_s, y, dots)
+            c.drawString(NAME_X, y, dn)
+
+            dc = fmt_date(created)
+            du = fmt_date(uploaded)
+            pg_str = str(target + 1)
+
+            c.drawString(DATE_C_X, y, dc)
+            # dots: name end -> Created
+            dots_between(c, NAME_X + c.stringWidth(dn, "Times-Roman", 9) + 3, DATE_C_X - 3, y)
+            # dots: Created end -> Uploaded
+            dots_between(c, DATE_C_X + c.stringWidth(dc, "Times-Roman", 9) + 3, DATE_U_X - 3, y)
+            c.drawString(DATE_U_X, y, du)
+            # dots: Uploaded end -> Page
+            dots_between(c, DATE_U_X + c.stringWidth(du, "Times-Roman", 9) + 3, PAGE_X - c.stringWidth(pg_str, "Times-Roman", 9) - 3, y)
+            c.drawRightString(PAGE_X, y, pg_str)
+
             link_records.append((toc_page_offset + toc_local, (ML, y-2, MR, y+10), target))
             y -= ROW_H
 
     c.save(); buf.seek(0)
     return buf, link_records
 
-# ── Two-pass build ────────────────────────────────────────────────────────────
+# Two-pass
 layout = compute_layout(STRUCTURE, doc_page_counts, toc_pages=1)
 toc_buf, _ = make_toc(STRUCTURE, layout, 1)
 actual_toc_pages = len(PdfReader(toc_buf).pages)
 print(f"TOC pages: {actual_toc_pages}")
-
 layout = compute_layout(STRUCTURE, doc_page_counts, toc_pages=actual_toc_pages)
 toc_buf, link_records = make_toc(STRUCTURE, layout, 1)
 
-# ── Assemble ──────────────────────────────────────────────────────────────────
 writer = PdfWriter()
-
-for pg in PdfReader(make_cover()).pages:
-    writer.add_page(pg)
-
+for pg in PdfReader(make_cover()).pages: writer.add_page(pg)
 toc_buf.seek(0)
-for pg in PdfReader(toc_buf).pages:
-    writer.add_page(pg)
+for pg in PdfReader(toc_buf).pages: writer.add_page(pg)
 
 si = 0
 for e in STRUCTURE:
     if e[0] == 'section':
-        for pg in PdfReader(make_divider(e[1])).pages:
-            writer.add_page(pg)
+        for pg in PdfReader(make_divider(e[1], e[2])).pages: writer.add_page(pg)
         si += 1
     else:
         num, fname = e[0], e[1]
@@ -228,25 +263,44 @@ for e in STRUCTURE:
 total = len(writer.pages)
 print(f"Total pages: {total}")
 
-# ── Link annotations ──────────────────────────────────────────────────────────
+# Links — fix zoom by specifying explicit zoom=0 (inherit current zoom)
 try:
-    from pypdf.annotations import Link
+    from pypdf.generic import (ArrayObject, FloatObject, NameObject,
+                                NumberObject, DictionaryObject)
     for (toc_pg, rect, target_pg) in link_records:
         if toc_pg >= total or target_pg >= total: continue
-        writer.add_annotation(page_number=toc_pg,
-            annotation=Link(rect=rect, target_page_index=target_pg))
-    print("Links added OK")
+        # Build explicit XYZ destination: page, left=0, top=page_height, zoom=0 (no change)
+        page_obj = writer.pages[target_pg]
+        dest = ArrayObject([
+            page_obj.indirect_reference,
+            NameObject("/XYZ"),
+            FloatObject(0),
+            FloatObject(float(page_obj.mediabox[3])),
+            FloatObject(0),  # zoom=0 means keep current zoom
+        ])
+        annot = DictionaryObject({
+            NameObject("/Type"): NameObject("/Annot"),
+            NameObject("/Subtype"): NameObject("/Link"),
+            NameObject("/Rect"): ArrayObject([
+                FloatObject(rect[0]), FloatObject(rect[1]),
+                FloatObject(rect[2]), FloatObject(rect[3])
+            ]),
+            NameObject("/Border"): ArrayObject([NumberObject(0), NumberObject(0), NumberObject(0)]),
+            NameObject("/Dest"): dest,
+        })
+        writer.add_annotation(page_number=toc_pg, annotation=annot)
+    print("Links OK (zoom preserved)")
 except Exception as ex:
-    print(f"Links skipped: {ex}")
+    print(f"Links error: {ex}")
 
-# ── PDF bookmarks (sidebar nav) ───────────────────────────────────────────────
+# Bookmarks
 si = 0
 section_parents = {}
 for e in STRUCTURE:
     if e[0] == 'section':
         pg = layout.get(f's{si}', 0)
         if pg < total:
-            section_parents[si] = writer.add_outline_item(e[1], pg)
+            section_parents[si] = writer.add_outline_item(f"{e[1]} — {e[2]}", pg)
         si += 1
     else:
         num = e[0]; pg = layout.get(num, 0)
@@ -255,7 +309,6 @@ for e in STRUCTURE:
         if pg < total:
             writer.add_outline_item(f"{num}. {e[2]}", pg, parent=parent)
 
-# ── Save ──────────────────────────────────────────────────────────────────────
 out = "/home/ubuntu/AZ_Bar_Merged.pdf"
 with open(out, "wb") as f:
     writer.write(f)
